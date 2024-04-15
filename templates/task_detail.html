@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Užduoties detalės</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Užduoties detalės</h1>
+        <p><strong>Pavadinimas:</strong> {{ task.title }}</p>
+        <p><strong>Apibūdinimas:</strong> {{ task.description }}</p>
+        <p><strong>Statusas:</strong> <span class="status {{ task.status }}">{{ task.status }}</span></p>
+        <p><strong>Vartotojas:</strong> {{ task.user }}</p>
+        <form action="{{ url_for('edit_task', task_id=task.id) }}" method="post">
+            <input type="text" name="title" placeholder="Naujas pavadinimas">
+            <input type="text" name="description" placeholder="Naujas apibūdinimas">
+            <select name="status">
+                <option value="Neatlikta">Neatlikta</option>
+                <option value="Atlikta">Atlikta</option>
+                <option value="Nukelta">Nukelta</option>
+            </select>
+            <input type="text" name="user" placeholder="Naujas vartotojas">
+            <button type="submit">Redaguoti</button>
+        </form>
+        <form action="{{ url_for('change_status', task_id=task.id, new_status='Neatlikta') }}" method="post">
+            <button type="submit">Pažymėti kaip neatlikta</button>
+        </form>
+        <form action="{{ url_for('change_status', task_id=task.id, new_status='Atlikta') }}" method="post">
+            <button type="submit">Pažymėti kaip atlikta</button>
+        </form>
+    </div>
+</body>
+</html>
